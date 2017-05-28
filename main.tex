@@ -20,23 +20,23 @@ Jefferson Santiago$^{1}$, Jes\'us Ar\'evalo$^{2}$, Luinel Andrade$^{3}$\\ \\
 \small{Universidad Central de Venezuela, 1024, Caracas, Venezuela.}\\
 \small{\texttt{\{$^{1}$jefri.26.4, $^{2}$jaas1710@, $^{3}$luinel1393\}@gmail.com}} %$^{3}$lex@fechorias.com}}
 }
-%\author{\IEEEauthorblockN{Jefferson Santiago}
-%\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
-%Universidad Central de Venezuela\\
-%Caracas, Venezuela\\
-%Email: jefri.26.4@gmail.com}
-%\and
-%\IEEEauthorblockN{Jes\'us Ar\'evalo}
-%\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
-%Universidad Central de Venezuela\\
-%Caracas, Venezuela\\
-%Email: jaas1710@gmail.com}
-%\and
-%\IEEEauthorblockN{Luinel Andrade}
-%\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
-%Universidad Central de Venezuela\\
-%Caracas, Venezuela\\
-%Email: luinel1393@gmail.com}}
+\author{\IEEEauthorblockN{Jefferson Santiago}
+\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
+Universidad Central de Venezuela\\
+Caracas, Venezuela\\
+Email: jefri.26.4@gmail.com}
+\and
+\IEEEauthorblockN{Jes\'us Ar\'evalo}
+\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
+Universidad Central de Venezuela\\
+Caracas, Venezuela\\
+Email: jaas1710@gmail.com}
+\and
+\IEEEauthorblockN{Luinel Andrade}
+\IEEEauthorblockA{Escuela de Computaci\'on\\Facultad de Ciencias\\
+Universidad Central de Venezuela\\
+Caracas, Venezuela\\
+Email: luinel1393@gmail.com}}
 
 
 % make the title area
@@ -60,18 +60,32 @@ persistencia, pol\'iglota, NoSQL, MongoDB, N	eo4j.
 
 
 \section{Introducci\'on}
-En los \'ultimos a\~nos debido al uso de nuevas tecnolog\'ias en la sociedad  ha aumentado la necesidad de manejar grandes vol\'umenes  de datos por parte de los usuarios  y con ello la necesidad de procesar esos datos con una alta disponibilidad y escalabilidad. Es por ello que se ha venido popularizando el uso de base de datos NoSQL ante los ya ampliamente usados sistemas de bases de datos relacionales, sin embargo, son bases de datos con características t\'ecnicas muy distintas entre ellas por lo que es importante tomar en cuenta a que tareas se adaptan de forma m\'as adecuada para conseguir mejor desempe\~no y productividad. Debido a la diversidad t\'ecnica y de enfoque de esos sistemas y sumado a que, para mejorar la experiencia de usuarios ofreci\'endoles servicios m\'as completos se realizan tareas diversas sobre los datos, ha surgido lo que se conoce como Persistencia Pol\'iglota lo cual se centra en el hecho de que las aplicaciones se pueden beneficiar del uso de varios sistemas de distinto tipo para que los datos sean repartidos y procesados por los que mejor  se adapten a ellos y a las tareas que se ejecutar\'an.   
+En los \'ultimos a\~nos debido al uso de Internet y de nuevoas tecnolog\'ias ha aumentado la necesidad de manejar datos en vol\'umenes mayores a los que tradicionalmente manejan las bases de datos tradicionales, con 	una alta disponibilidad y escalabilidad. Es por esto que surgen las bases de datos NoSQL cuyo uso suele ser determinado por la necesidad de abarcar un fenomeno existente medi\'ante un modelo de datos apropiado, generalmente fuera del modelo relacional, sin embargo, la variedad de modelos de datos y las diferentes características t\'ecnicas entre ellas han requerido nuevos enfoques que deben establecer criterios que permitan conocer a que tareas se adaptan de forma m\'as adecuada para conseguir mejor desempe\~no y productividad.  La Persistencia Pol\'iglota se centra en el hecho de que las aplicaciones se pueden beneficiar del uso de una base de datos para cada dominio o componente de la aplicaci\'on, de esta forma aprovechar el enfoque de ”usar la mejor herramienta para el trabajo” en cada uno de los paradigmas que se necesiten contemplar, sin embargo, refiere una dificultad a nivel de integracion de las bases de datos.
+
+\section{Modelos de datos semiestructurados}
+
+Las bases de datos NoSQL han adoptado modelos de datos de esquema flexible que buscan adaptarse a los distintos problemas a resolver. Estos modelos se han denominado semiestructurados, debido a que aunque tienen una estructura implicita esta no es tan regular que pueda ser gestionada. 
+
+Entre los modelos de datos semiestructurados que se han implementado se tienen
+\begin{itemize}
+\item \textbf{Clave valor:} Es como un mapa o diccionario, donde a una clave se le asigna un valor que puede ser cualquier estructura de datos.
+\item \textbf{Familia de Columnas:} Modelo propuesto por Goggle para su base de datos BigTable \cite{BigTable} basada en el concepto de columna y la agrupación de columnas relacionadas en familias de columnas.
+\item \textbf{Documentales:} Compuesto de un conjunto de tuplas clave-valor, donde el valor pueden ser datos atómicos, un arreglo u otras tuplas clave-valor. Son representados en el formato Json \cite{Json} el cual es un formato de texto para intercambio de datos estructurados entre lenguajes de programamci\'on.
+\item \textbf{Grafos:} Estructura de datos donde la información se representa como nodos con propiedades y sus relaciones como enlaces \cite{neo}.
+\end{itemize}
+
+C\'omo se puede observar, cada uno de estos modelos representa la información de diferentes maneras, lo cual hace que la aplicación que use este tipo de bases de datos, tenga que adaptarse a dicha representaciones y su forma de acceso a los datos. Esto se hace m\'as complejo si la aplicaci\'on usa más de una base de datos NoSQL con modelos o formas de acceso distintos entre si. 
 
 
 \section{Persistencia Pol\'iglota}
-El t\'ermino Aplicaci\'on de Persistencia Pol\'iglota en base a que han surgido diferentes BD NoSQL describe la idea de que las aplicaciones deber\'ian utilizar distintos SMBD al mismo tiempo, pensando en que se utilice el modelo de datos m\'as adecuado para cada tarea \cite{persistenciaPoliglota}. Esto se debe a que algunos tipos de bases de datos est\'an mejor diseñadas para realizar ciertas tareas que otros.
-
-Lo que se busca con este tipo de aplicaciones es que primero se decida qu\'e tareas se van a realizar, con qu\'e tipo de datos y cu\'ales ser\'an sus necesidades; y despu\'es elegir el sistema que mejor se adapte a las necesidades de cada tarea. De esta forma se tendr\'an varios sistemas de bases de datos para cada aplicaci\'on. 
-
-El principal problema a la hora de crear este tipo de aplicación es que debe comunicarse con sistemas de bases de datos diferentes que a su vez manejan distintos tipos de modelos de datos. Por lo que en principio \'esto podr\'ia hacer que la aplicaci\'on fuera muy compleja. Para ello, al definir como est\'a definida la arquitectura de este tipo de aplicaciones, se explicar\'a c\'omo se pueden diseñar y c\'omo evitar, en parte, dicha complejidad
 
 
-\section{Arquitectura}
+El t\'ermino Aplicaci\'on de Persistencia Pol\'iglota se basa en la idea de que las aplicaciones aprovechen las facilidades que cada modelo de datos aporta a la solución de un problema o ejecución de una tarea, que llevaría al uso de más de un sistemas de almacenamiento al la vez \cite{persistenciaPoliglota}. Lo que se busca al aplicar persistencia pol\'iglota es que las aplicaciones primero definan las tareas que van a realizar, y en base a estas, que modelo de datos se adapta mejor a las necesidades de dicha tarea. De esta forma se tendr\'an varios sistemas de bases de datos para cada aplicaci\'on. 
+
+El principal problema a la hora de desarrollar este tipo de aplicaci\'on es manejar las distintas representaciones de los datos, dependiendo del sistema de almacenamiento, mantener las conexiones a cada base de datos y mantener la integridad entre la data. Por lo que en principio \'esto podr\'ia hacer que la aplicaci\'on fuera muy compleja. En la siguiente secci\'on se describir\'an varios diseños de arquitectura de persistencia pol\'iglota y como manejan esta complejidad.
+
+
+\section{Arquitecturas de Persistencia Pol\'iglota}
 Una arquitectura de persistencia políglota tiene como objetivo mostrar como se interrelacionan los diferentes elementos de persistencia políglota en un sistema o aplicación
 
 Uno de los puntos más interesantes en las Aplicaciones de Persistencia Políglota - adem\'as
@@ -80,7 +94,7 @@ la aplicaci\'on. La presencia de varios sistemas de almacenamiento trae consigo 
 de problemas y necesidades que no existen en las aplicaciones con un \'unico sistema de
 almacenamiento.
 
-En una aplicaci\'on simple se tendr\'ia un \'unico sistema al cual se acceder\'ia para realizar las diferentes operaciones, independientemente de qu\'e tarea se trate o qu\'e datos se quieran consultar. Por tanto, la aplicaci\'on realiza operaciones que necesitan hacer diferentes consultas, pero todas ellas se hacen sobre el mismo sistema de almacenamiento
+En una aplicaci\'on simple se tendr\'ia un \'unico sistema al cual se acceder\'ia para realizar las diferentes operaciones, independientemente de qu\'e tarea se trate o qu\'e datos se quieran consultar. Por tanto, la aplicaci\'on realiza operaciones que necesitan hacer diferentes consultas, pero todas ellas se hacen sobre el mismo sistema de almacenamiento como se puede observar en la figura 1
 
 \begin{figure}[!h]
 \centering
@@ -88,11 +102,11 @@ En una aplicaci\'on simple se tendr\'ia un \'unico sistema al cual se acceder\'i
 \caption{Ejemplo de una arquitectura con un \'unico sistema de almacenamiento.}
 \label{fig1}
 \end{figure}
-Al introducir otros sistemas de almacenamiento, como se observa en la figura 1, la aplicaci\'on deber\'a realizar las consultas de los datos sobre distintos sistemas, lo cual puede acarrear lo siguiente:
+Al introducir otros sistemas de almacenamiento, como se muestra en la figura 2, la aplicaci\'on deber\'a realizar las consultas de los datos sobre distintos sistemas, con lo que puede ocurrir lo siguiente:
 
 \begin{itemize}
 \item  No ser\'ia transparente para la aplicaci\'on el hecho de que hay m\'as de un sistema manejador actuando por debajo, por tener diferentes modelos de datos.
-\item  Las implicaciones que tendría agregar nuevos manejadores o realizar algún cambio en uno existente.
+\item  Se deben tomar en cuenta las implicaciones que tendría agregar nuevos manejadores o realizar algún cambio en uno existente.
 \end{itemize}
 
 Un primer diseño ser\'ia el m\'as directo. En este caso, cada parte de la aplicaci\'on se comunica directamente con el sistema de almacenamiento que contiene los datos a los que se quiere acceder. Tal y como se puede ver en la figura 2 la aplicaci\'on realiza operaciones sobre cada uno de los sistemas de almacenamiento seg\'un lo vea necesario.
@@ -385,6 +399,16 @@ Guti\'errez E. Aplicaci\'on de Persistencia Pol\'iglota para Almacenamientos NoS
 \bibitem{sistemaAlmacenamiento}
 Pramod J. Sadalage Martin Fowler. NoSQL Distilled: A brief Guide to the Emerging
 World of Polyglot Persistence. Addison-Wesley, 2013.
+
+\bibitem{BigTable}
+Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. 2008. Bigtable: A Distributed Storage System for Structured Data. ACM Trans. Comput. Syst. 26, 2, Article 4 (June 2008), 26 pages. DOI=http://dx.doi.org/10.1145/1365815.1365816
+
+\bibitem{NoSQL}
+Vaish, Gaurav. Getting Started with NoSQL. Packt Publishing, 2013.
+
+\bibitem{Json}
+ECMA-404. Introducción a JSON. 2013. [online]
+Disponible en: http://www.json.org/json-es.html
 
 \bibitem{wanderu}
 Boyd R. Polyglot Persistence Case Study: Wanderu + Neo4j + MongoDB Neo4j Blog, 2015.
